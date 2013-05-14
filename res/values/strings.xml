@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Logo Game</string>
+    <string name="action_settings">Settings</string>
+    <string name="tittle">Logo Game</string>
+    <string name="buttonStart">Start</string>
+    <string name="buttonHelp">Help</string>
+    <string name="title_activity_playground">MainActivity</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="hintTittle">Find the name of the logo</string>
+    <string name="inputHint">Enter your answer</string>
+    <string name="buttonHome">Home</string>
+    <string name="buttonCheck">Check</string>
+
+</resources>
