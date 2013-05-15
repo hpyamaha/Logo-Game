@@ -69,17 +69,14 @@ public class PlaygroundActivity extends Activity implements OnClickListener {
 	@Override
 	public void onClick(View arg0) {
 		InputStream bitmap1 = null;
-		InputStream bitmap2 = null;
 
 		do {
 			try {
 				bitmap1 = this.getAssets().open(i + ".png");
 				Bitmap bit1 = BitmapFactory.decodeStream(bitmap1);
-				bitmap2 = this.getAssets().open("");
-				Bitmap bit2 = BitmapFactory.decodeStream(bitmap2);
 
 				img1.setImageBitmap(bit1);
-				img2.setImageBitmap(bit2);
+				img2.setVisibility(View.GONE);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -97,35 +94,28 @@ public class PlaygroundActivity extends Activity implements OnClickListener {
 			b = a.equalsIgnoreCase(ans[i]) ? 1 : 0;
 
 			if (b == 1) {
-				try {
-					bitmap2 = this.getAssets().open("tickmark.png");
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				Bitmap bit2 = BitmapFactory.decodeStream(bitmap2);
-				img2.setImageBitmap(bit2);
+				img2.setVisibility(View.VISIBLE);
+				img2.setImageResource(R.drawable.tickmark);
 				button.setText("Next");
 				switch (arg0.getId()) {
 				case R.id.buttonCheck: {
-					Intent intent = new Intent(this, Correct.class);
+					Intent intent = new Intent(this, CorrectActivity.class);
 					this.startActivity(intent);
 				}
 					break;
 				}
 			} else if (b == 0) {
-				try {
-					bitmap2 = this.getAssets().open("crossmark.png");
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				Bitmap bit2 = BitmapFactory.decodeStream(bitmap2);
-				img2.setImageBitmap(bit2);
+				/*
+				 * try { bitmap2 = this.getAssets().open("crossmark.png"); }
+				 * catch (IOException e) { // TODO Auto-generated catch block
+				 * e.printStackTrace(); }
+				 */
+				img2.setVisibility(View.VISIBLE);
+				img2.setImageResource(R.drawable.crossmark);
 				button.setText("Try Again");
 				switch (arg0.getId()) {
 				case R.id.buttonCheck: {
-					Intent intent = new Intent(this, Wrong.class);
+					Intent intent = new Intent(this, WrongActivity.class);
 					this.startActivity(intent);
 				}
 					break;

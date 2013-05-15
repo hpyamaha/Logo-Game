@@ -12,5 +12,7 @@
     <string name="inputHint">Enter your answer</string>
     <string name="buttonHome">Home</string>
     <string name="buttonCheck">Check</string>
+    <string name="title_activity_correct">CorrectActivity</string>
+    <string name="title_activity_wrong">WrongActivity</string>
 
 </resources>

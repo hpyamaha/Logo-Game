@@ -22,7 +22,8 @@
         android:layout_height="300dp"
         android:layout_below="@+id/textView1"
         android:layout_centerHorizontal="true"
-        android:src="@drawable/ic_launcher" />
+        android:src="@drawable/ic_launcher" 
+        />
 
     <EditText
         android:id="@+id/inputAns"
@@ -61,6 +62,7 @@
         android:layout_alignRight="@+id/textView1"
         android:layout_alignTop="@+id/img1"
         android:layout_marginTop="36dp"
-        android:src="@drawable/ic_launcher" />
+        android:src="@drawable/ic_launcher" 
+        android:visibility="gone"/>
 
 </RelativeLayout>

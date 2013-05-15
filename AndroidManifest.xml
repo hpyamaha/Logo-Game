@@ -30,6 +30,22 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.logo" />
         </activity>
+        <activity
+            android:name="com.example.logogame.CorrectActivity"
+            android:label="@string/title_activity_correct"
+            android:parentActivityName="com.exapmple.logogame" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.exapmple.logogame" />
+        </activity>
+        <activity
+            android:name="com.example.logogame.WrongActivity"
+            android:label="@string/title_activity_wrong"
+            android:parentActivityName="com.example.logogame" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.logogame" />
+        </activity>
     </application>
 
 </manifest>
