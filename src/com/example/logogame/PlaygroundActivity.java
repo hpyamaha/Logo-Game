@@ -5,7 +5,6 @@ import java.io.InputStream;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Build;
@@ -46,6 +45,7 @@ public class PlaygroundActivity extends Activity implements OnClickListener {
 		ans[8] = "Corvette";
 		ans[9] = "Chanel";
 
+		this.displayImage(i);
 		button.setOnClickListener(this);
 	}
 
@@ -66,64 +66,75 @@ public class PlaygroundActivity extends Activity implements OnClickListener {
 		return true;
 	}
 
-	@Override
-	public void onClick(View arg0) {
+	/**
+	 * will display an image i
+	 * 
+	 * @param i
+	 */
+	private void displayImage(int index) {
 		InputStream bitmap1 = null;
+		try {
+			bitmap1 = this.getAssets().open(index + ".png");
+			Bitmap bit1 = BitmapFactory.decodeStream(bitmap1);
 
-		do {
-			try {
-				bitmap1 = this.getAssets().open(i + ".png");
-				Bitmap bit1 = BitmapFactory.decodeStream(bitmap1);
+			img1.setImageBitmap(bit1);
 
-				img1.setImageBitmap(bit1);
-				img2.setVisibility(View.GONE);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} finally {
-				if (bitmap1 != null)
-					try {
-						bitmap1.close();
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-			}
-			String a = (inputAns.getText().toString());
-			int b;
-			b = a.equalsIgnoreCase(ans[i]) ? 1 : 0;
-
-			if (b == 1) {
-				img2.setVisibility(View.VISIBLE);
-				img2.setImageResource(R.drawable.tickmark);
-				button.setText("Next");
-				switch (arg0.getId()) {
-				case R.id.buttonCheck: {
-					Intent intent = new Intent(this, CorrectActivity.class);
-					this.startActivity(intent);
-				}
-					break;
-				}
-			} else if (b == 0) {
-				/*
-				 * try { bitmap2 = this.getAssets().open("crossmark.png"); }
-				 * catch (IOException e) { // TODO Auto-generated catch block
-				 * e.printStackTrace(); }
-				 */
-				img2.setVisibility(View.VISIBLE);
-				img2.setImageResource(R.drawable.crossmark);
-				button.setText("Try Again");
-				switch (arg0.getId()) {
-				case R.id.buttonCheck: {
-					Intent intent = new Intent(this, WrongActivity.class);
-					this.startActivity(intent);
-				}
-					break;
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if (bitmap1 != null) {
+				try {
+					bitmap1.close();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
 			}
 
-		} while (this.i < 10);
+		}
 
 	}
 
+	@Override
+	public void onClick(View arg0) {
+
+		switch (arg0.getId()) {
+		case R.id.buttonHome:
+			this.setContentView(R.layout.main);
+			break;
+
+		case R.id.buttonCheck:
+			String b = button.getText().toString();
+			if (b.equalsIgnoreCase("Check")) {
+				img2.setVisibility(View.VISIBLE);
+				if (ans[i].equalsIgnoreCase(inputAns.getText().toString())) {
+
+					img2.setImageResource(R.drawable.tickmark);
+					button.setText("Next");
+				} else {
+
+					img2.setImageResource(R.drawable.crossmark);
+					button.setText("Try Again");
+
+				}
+			}
+
+			else if (b.equalsIgnoreCase("Next")) {
+				img2.setVisibility(View.GONE);
+				button.setText("Check");
+				inputAns.setText("");
+				i++;
+				this.displayImage(i);
+			} else if (b.equalsIgnoreCase("Try Again")) {
+				img2.setVisibility(View.GONE);
+				button.setText("Check");
+				inputAns.setText("");
+				
+			}
+			break;
+
+		}
+
+	}
 }
