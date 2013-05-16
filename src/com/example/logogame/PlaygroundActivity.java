@@ -23,11 +23,15 @@ public class PlaygroundActivity extends Activity implements OnClickListener {
 	int i = 0;
 	Button button;
 	EditText inputAns;
+	int count = 0;
+	int set1[] = new int[10];
+	int set2[] = new int[10];
+	int set0[] = new int[10];
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.playground);
+		this.setContentView(R.layout.playground);
 		// Show the Up button in the action bar.
 		setupActionBar();
 		img1 = (ImageView) findViewById(R.id.img1);
@@ -57,6 +61,42 @@ public class PlaygroundActivity extends Activity implements OnClickListener {
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
 			getActionBar().setDisplayHomeAsUpEnabled(true);
 		}
+	}
+
+	public void setIni() {
+		set0[0] = 3;
+		set0[1] = 2;
+		set0[2] = 5;
+		set0[3] = 1;
+		set0[4] = 4;
+		set0[5] = 6;
+		set0[6] = 9;
+		set0[7] = 7;
+		set0[8] = 0;
+		set0[9] = 8;
+
+		set1[0] = 0;
+		set1[1] = 5;
+		set1[2] = 9;
+		set1[3] = 7;
+		set1[4] = 3;
+		set1[5] = 1;
+		set1[6] = 2;
+		set1[7] = 8;
+		set1[8] = 6;
+		set1[9] = 4;
+
+		set2[0] = 1;
+		set2[1] = 2;
+		set2[2] = 3;
+		set2[3] = 4;
+		set2[4] = 5;
+		set2[5] = 6;
+		set2[6] = 7;
+		set2[7] = 8;
+		set2[8] = 9;
+		set2[9] = 0;
+
 	}
 
 	@Override
@@ -109,29 +149,28 @@ public class PlaygroundActivity extends Activity implements OnClickListener {
 			if (b.equalsIgnoreCase("Check")) {
 				img2.setVisibility(View.VISIBLE);
 				if (ans[i].equalsIgnoreCase(inputAns.getText().toString())) {
-
 					img2.setImageResource(R.drawable.tickmark);
 					button.setText("Next");
+
 				} else {
 
 					img2.setImageResource(R.drawable.crossmark);
 					button.setText("Try Again");
 
 				}
-			}
-
-			else if (b.equalsIgnoreCase("Next")) {
+			} else if (b.equalsIgnoreCase("Next")) {
 				img2.setVisibility(View.GONE);
 				button.setText("Check");
 				inputAns.setText("");
-				i++;
+				i = (int) (Math.random() * 10);
 				this.displayImage(i);
 			} else if (b.equalsIgnoreCase("Try Again")) {
 				img2.setVisibility(View.GONE);
 				button.setText("Check");
 				inputAns.setText("");
-				
+
 			}
+
 			break;
 
 		}

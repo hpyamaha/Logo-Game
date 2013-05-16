@@ -14,5 +14,6 @@
     <string name="buttonCheck">Check</string>
     <string name="title_activity_correct">CorrectActivity</string>
     <string name="title_activity_wrong">WrongActivity</string>
+    <string name="gameover">Game Over</string>
 
 </resources>
