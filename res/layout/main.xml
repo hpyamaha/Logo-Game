@@ -26,14 +26,12 @@
         android:layout_below="@+id/textView1"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="34dp"
-        android:onClick="Start"
         android:paddingBottom="10dp"
         android:paddingLeft="30dp"
         android:paddingRight="30dp"
         android:paddingTop="10dp"
         android:text="@string/buttonStart"
-        android:textSize="30sp"/>
-        
+        android:textSize="30sp" />
 
     <Button
         android:id="@+id/buttonHelp"
@@ -42,7 +40,6 @@
         android:layout_below="@+id/buttonStart"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="23dp"
-        android:onClick="help"
         android:paddingLeft="30dp"
         android:paddingRight="30dp"
         android:text="@string/buttonHelp" />

@@ -21,12 +21,12 @@ public class PlaygroundActivity extends Activity implements OnClickListener {
 	ImageView img1;
 	String ans[] = new String[10];
 	int i = 0;
+	int j = 0;
+	int k = 0;
 	Button button;
 	EditText inputAns;
 	int count = 0;
-	int set1[] = new int[10];
-	int set2[] = new int[10];
-	int set0[] = new int[10];
+	int set[] = new int[10];
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -63,41 +63,21 @@ public class PlaygroundActivity extends Activity implements OnClickListener {
 		}
 	}
 
-	public void setIni() {
-		set0[0] = 3;
-		set0[1] = 2;
-		set0[2] = 5;
-		set0[3] = 1;
-		set0[4] = 4;
-		set0[5] = 6;
-		set0[6] = 9;
-		set0[7] = 7;
-		set0[8] = 0;
-		set0[9] = 8;
-
-		set1[0] = 0;
-		set1[1] = 5;
-		set1[2] = 9;
-		set1[3] = 7;
-		set1[4] = 3;
-		set1[5] = 1;
-		set1[6] = 2;
-		set1[7] = 8;
-		set1[8] = 6;
-		set1[9] = 4;
-
-		set2[0] = 1;
-		set2[1] = 2;
-		set2[2] = 3;
-		set2[3] = 4;
-		set2[4] = 5;
-		set2[5] = 6;
-		set2[6] = 7;
-		set2[7] = 8;
-		set2[8] = 9;
-		set2[9] = 0;
-
-	}
+	/*
+	 * public void setIni() { set[0][0] = 3; set[0][1] = 2; set[0][2] = 5;
+	 * set[0][3] = 1; set[0][4] = 4; set[0][5] = 6; set[0][6] = 9; set[0][7] =
+	 * 7; set[0][8] = 0; set[0][9] = 8;
+	 * 
+	 * set[1][0] = 0; set[1][1] = 5; set[1][2] = 9; set[1][3] = 7; set[1][4] =
+	 * 3; set[1][5] = 1; set[1][6] = 2; set[1][7] = 8; set[1][8] = 6; set[1][9]
+	 * = 4;
+	 * 
+	 * set[2][0] = 1; set[2][1] = 2; set[2][2] = 3; set[2][3] = 4; set[2][4] =
+	 * 5; set[2][5] = 6; set[2][6] = 7; set[2][7] = 8; set[2][8] = 9; set[2][9]
+	 * = 0;
+	 * 
+	 * }
+	 */
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -163,12 +143,25 @@ public class PlaygroundActivity extends Activity implements OnClickListener {
 				button.setText("Check");
 				inputAns.setText("");
 				i = (int) (Math.random() * 10);
-				this.displayImage(i);
+
+				if (i != set[0] && i != set[1] && i != set[2] && i != set[3] && i != set[4] && i != set[5] && i != set[6] && i != set[7]
+						&& i != set[8] && i != set[9]) {
+					this.displayImage(i);
+				}
+
+				set[k] = i;
+
+				k = k + 1;
+				count++;
+				
 			} else if (b.equalsIgnoreCase("Try Again")) {
 				img2.setVisibility(View.GONE);
 				button.setText("Check");
 				inputAns.setText("");
 
+			}
+			else if(count==10){
+				this.setContentView(R.layout.gameover);
 			}
 
 			break;

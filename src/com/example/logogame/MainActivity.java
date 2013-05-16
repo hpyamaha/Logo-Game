@@ -9,18 +9,20 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 
 public class MainActivity extends Activity implements OnClickListener {
-	Button button;
+	Button buttonStart, buttonHelp;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
+
+		buttonStart = (Button) findViewById(R.id.buttonStart);
+		buttonStart = (Button) findViewById(R.id.buttonHelp);
 		
-		button=(Button)findViewById(R.id.buttonStart);
-		button.setOnClickListener(this);
+		buttonStart.setOnClickListener(this);
+		buttonHelp.setOnClickListener(this);
 	}
 
-	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
@@ -35,6 +37,9 @@ public class MainActivity extends Activity implements OnClickListener {
 			Intent intent = new Intent(this, PlaygroundActivity.class);
 			this.startActivity(intent);
 		}
+			break;
+		case R.id.buttonHelp:
+			this.setContentView(R.layout.activity_correct);
 			break;
 		}
 

@@ -15,5 +15,7 @@
     <string name="title_activity_correct">CorrectActivity</string>
     <string name="title_activity_wrong">WrongActivity</string>
     <string name="gameover">Game Over</string>
+    <string name="helpWindow">Help</string>
+    <string name="Description">In this game, you will be shown a logo and asked to identify it. You are also requested to enter the correct answer in full words as shortforms are considered as wrong answers. Enjoy playing the game.</string>
 
 </resources>
