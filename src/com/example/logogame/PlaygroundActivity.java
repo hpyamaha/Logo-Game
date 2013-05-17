@@ -2,6 +2,8 @@ package com.example.logogame;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -27,6 +29,7 @@ public class PlaygroundActivity extends Activity implements OnClickListener {
 	EditText inputAns;
 	int count = 0;
 	int set[] = new int[10];
+	List<QuestionActivity> questions = new ArrayList<QuestionActivity>();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -34,10 +37,12 @@ public class PlaygroundActivity extends Activity implements OnClickListener {
 		this.setContentView(R.layout.playground);
 		// Show the Up button in the action bar.
 		setupActionBar();
+
 		img1 = (ImageView) findViewById(R.id.img1);
 		img2 = (ImageView) findViewById(R.id.imd2);
 		button = (Button) findViewById(R.id.buttonCheck);
 		inputAns = (EditText) findViewById(R.id.inputAns);
+
 		ans[0] = "Facebook";
 		ans[1] = "American Eagle";
 		ans[2] = "Ebay";
@@ -49,6 +54,16 @@ public class PlaygroundActivity extends Activity implements OnClickListener {
 		ans[8] = "Corvette";
 		ans[9] = "Chanel";
 
+		questions.add(new QuestionActivity("Facebook", "0.png"));
+		questions.add(new QuestionActivity("American Eagle", "1.png"));
+		questions.add(new QuestionActivity("Ebay", "2.png"));
+		questions.add(new QuestionActivity("BP", "3.png"));
+		questions.add(new QuestionActivity("MySpace", "4.png"));
+		questions.add(new QuestionActivity("Expedia", "5.png"));
+		questions.add(new QuestionActivity("Fox", "6.png"));
+		questions.add(new QuestionActivity("Pantene", "7.png"));
+		questions.add(new QuestionActivity("Corvette", "8.png"));
+		questions.add(new QuestionActivity("Chanel", "9.png"));
 		this.displayImage(i);
 		button.setOnClickListener(this);
 	}
@@ -142,25 +157,20 @@ public class PlaygroundActivity extends Activity implements OnClickListener {
 				img2.setVisibility(View.GONE);
 				button.setText("Check");
 				inputAns.setText("");
-				i = (int) (Math.random() * 10);
+				i = (int) (Math.random() * 10)% questions.size();
 
-				if (i != set[0] && i != set[1] && i != set[2] && i != set[3] && i != set[4] && i != set[5] && i != set[6] && i != set[7]
-						&& i != set[8] && i != set[9]) {
+				
 					this.displayImage(i);
-				}
+					
+					questions.remove(i);
 
-				set[k] = i;
-
-				k = k + 1;
-				count++;
 				
 			} else if (b.equalsIgnoreCase("Try Again")) {
 				img2.setVisibility(View.GONE);
 				button.setText("Check");
 				inputAns.setText("");
 
-			}
-			else if(count==10){
+			} else if (count == 10) {
 				this.setContentView(R.layout.gameover);
 			}
 
