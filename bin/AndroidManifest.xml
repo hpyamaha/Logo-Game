@@ -54,6 +54,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.logogame" />
         </activity>
+        <activity
+            android:name="com.example.logogame.GameoverActivity"
+            android:label="@string/title_activity_gameover"
+            android:parentActivityName="com.example.logogame" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.logogame" />
+        </activity>
     </application>
 
 </manifest>

@@ -7,6 +7,8 @@ import java.util.List;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Build;
@@ -16,12 +18,15 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 
 public class PlaygroundActivity extends Activity implements OnClickListener {
 	ImageView img2;
 	ImageView img1;
-	String ans[] = new String[10];
+	Button Home;
+	ImageButton buttonHint;
+	int wc = 0;
 	int i = 0;
 	int j = 0;
 	int k = 0;
@@ -29,7 +34,7 @@ public class PlaygroundActivity extends Activity implements OnClickListener {
 	EditText inputAns;
 	int count = 0;
 	int set[] = new int[10];
-	List<QuestionActivity> questions = new ArrayList<QuestionActivity>();
+	List<Question> questions = new ArrayList<Question>();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -39,33 +44,27 @@ public class PlaygroundActivity extends Activity implements OnClickListener {
 		setupActionBar();
 
 		img1 = (ImageView) findViewById(R.id.img1);
-		img2 = (ImageView) findViewById(R.id.imd2);
+		img2 = (ImageView) findViewById(R.id.img2);
 		button = (Button) findViewById(R.id.buttonCheck);
 		inputAns = (EditText) findViewById(R.id.inputAns);
+		buttonHint = (ImageButton) findViewById(R.id.buttonHint);
+		Home = (Button) findViewById(R.id.buttonHome);
 
-		ans[0] = "Facebook";
-		ans[1] = "American Eagle";
-		ans[2] = "Ebay";
-		ans[3] = "BP";
-		ans[4] = "MySpace";
-		ans[5] = "Expedia";
-		ans[6] = "Fox";
-		ans[7] = "Pantene";
-		ans[8] = "Corvette";
-		ans[9] = "Chanel";
+		questions.add(new Question("Facebook", "FB", "0.png", " It is a Social website"));
+		questions.add(new Question("American Eagle", null, "1.png", "It is a clothing and accessories retailer"));
+		questions.add(new Question("Ebay", null, "2.png", "It is a online shopping site"));
+		questions.add(new Question("BP", "Bharat Petroleum", "3.png", "It is a petroleum company"));
+		questions.add(new Question("MySpace", null, "4.png", "It is a social networking site"));
+		questions.add(new Question("Expedia", null, "5.png", "It is an Internet-based travel website company"));
+		questions.add(new Question("Fox", null, "6.png", "It is a Broadcasting company"));
+		questions.add(new Question("Pantene", null, "7.png", "It is a famous shampoo company"));
+		questions.add(new Question("Corvette", null, "8.png", "It is a famous car company"));
+		questions.add(new Question("Chanel", null, "9.png", "It  is a high fashion brand"));
 
-		questions.add(new QuestionActivity("Facebook", "0.png"));
-		questions.add(new QuestionActivity("American Eagle", "1.png"));
-		questions.add(new QuestionActivity("Ebay", "2.png"));
-		questions.add(new QuestionActivity("BP", "3.png"));
-		questions.add(new QuestionActivity("MySpace", "4.png"));
-		questions.add(new QuestionActivity("Expedia", "5.png"));
-		questions.add(new QuestionActivity("Fox", "6.png"));
-		questions.add(new QuestionActivity("Pantene", "7.png"));
-		questions.add(new QuestionActivity("Corvette", "8.png"));
-		questions.add(new QuestionActivity("Chanel", "9.png"));
 		this.displayImage(i);
 		button.setOnClickListener(this);
+		buttonHint.setOnClickListener(this);
+		Home.setOnClickListener(this);
 	}
 
 	/**
@@ -109,7 +108,7 @@ public class PlaygroundActivity extends Activity implements OnClickListener {
 	private void displayImage(int index) {
 		InputStream bitmap1 = null;
 		try {
-			bitmap1 = this.getAssets().open(index + ".png");
+			bitmap1 = this.getAssets().open(questions.get(index).filename);
 			Bitmap bit1 = BitmapFactory.decodeStream(bitmap1);
 
 			img1.setImageBitmap(bit1);
@@ -136,14 +135,27 @@ public class PlaygroundActivity extends Activity implements OnClickListener {
 
 		switch (arg0.getId()) {
 		case R.id.buttonHome:
-			this.setContentView(R.layout.main);
+			Intent intent = new Intent(this, MainActivity.class);
+			this.startActivity(intent);
+
 			break;
+
+		case R.id.buttonHint: {
+			AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+			alertDialog.setTitle("Hint");
+			StringBuffer err = new StringBuffer();
+			err.append((questions.get(i).hint).toString());
+			alertDialog.setMessage(new String(err));
+			alertDialog.show();
+			return;
+		}
 
 		case R.id.buttonCheck:
 			String b = button.getText().toString();
 			if (b.equalsIgnoreCase("Check")) {
 				img2.setVisibility(View.VISIBLE);
-				if (ans[i].equalsIgnoreCase(inputAns.getText().toString())) {
+				if (questions.get(i).answer.equalsIgnoreCase((inputAns.getText().toString()).trim())
+						|| questions.get(i).answer2.equalsIgnoreCase((inputAns.getText().toString()).trim())) {
 					img2.setImageResource(R.drawable.tickmark);
 					button.setText("Next");
 
@@ -157,21 +169,41 @@ public class PlaygroundActivity extends Activity implements OnClickListener {
 				img2.setVisibility(View.GONE);
 				button.setText("Check");
 				inputAns.setText("");
-				i = (int) (Math.random() * 10)% questions.size();
 
-				
-					this.displayImage(i);
-					
-					questions.remove(i);
+				count++;
+				if (count == 10) {
 
-				
-			} else if (b.equalsIgnoreCase("Try Again")) {
+					Intent int1 = new Intent(this, GameoverActivity.class);
+					this.startActivity(int1);
+
+				}
+
+				questions.remove(i);
+				i = (int) (Math.random() * 10) % questions.size();
+
+				this.displayImage(i);
+
+			}
+
+			else if (b.equalsIgnoreCase("Try Again")) {
 				img2.setVisibility(View.GONE);
 				button.setText("Check");
 				inputAns.setText("");
+				wc++;
+				if (wc >= 3) {
+					AlertDialog alertDialog2 = new AlertDialog.Builder(this).create();
+					alertDialog2.setTitle("Wrong Answer");
+					StringBuffer err2 = new StringBuffer();
+					err2.append("The Correct Answer is " + (questions.get(i).answer).toString() + " or "
+							+ (questions.get(i).answer2).toString());
+					alertDialog2.setMessage(new String(err2));
+					alertDialog2.show();
+					inputAns.setText(questions.get(i).answer);
+					button.setText("Next");
+					return;
 
-			} else if (count == 10) {
-				this.setContentView(R.layout.gameover);
+				}
+
 			}
 
 			break;

@@ -10,17 +10,16 @@ import android.widget.Button;
 
 public class MainActivity extends Activity implements OnClickListener {
 	Button buttonStart, buttonHelp;
+	Button buttonHome;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
 
-		buttonStart = (Button) findViewById(R.id.buttonStart);
-		buttonHelp = (Button) findViewById(R.id.buttonHelp);
-		
-		buttonStart.setOnClickListener(this);
-		buttonHelp.setOnClickListener(this);
+
+
+
 	}
 
 	@Override
@@ -30,16 +29,24 @@ public class MainActivity extends Activity implements OnClickListener {
 		return true;
 	}
 
+	public void start(View view) {
+		Intent intent = new Intent(this, PlaygroundActivity.class);
+		this.startActivity(intent);
+
+	}
+
+	public void help(View view) {
+		this.setContentView(R.layout.activity_correct);
+		buttonHome = (Button) findViewById(R.id.Home);
+		this.buttonHome.setOnClickListener(this);
+
+	}
+
 	@Override
 	public void onClick(View arg0) {
 		switch (arg0.getId()) {
-		case R.id.buttonStart: {
-			Intent intent = new Intent(this, PlaygroundActivity.class);
-			this.startActivity(intent);
-		}
-			break;
-		case R.id.buttonHelp:
-			this.setContentView(R.layout.activity_correct);
+		case R.id.Home:
+			this.setContentView(R.layout.main);
 			break;
 		}
 

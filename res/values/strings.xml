@@ -18,5 +18,6 @@
     <string name="helpWindow">Help</string>
     <string name="Description">In this game, you will be shown a logo and asked to identify it. You are also requested to enter the correct answer in full words as shortforms are considered as wrong answers. Enjoy playing the game.</string>
     <string name="title_activity_question">QuestionActivity</string>
+    <string name="title_activity_gameover">GameoverActivity</string>
 
 </resources>
